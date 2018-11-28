@@ -389,8 +389,7 @@ public class Constants {
 
     public static final String SEMICOLON_SEPARATOR = ";";
 
-    public static final Pattern SEMICOLON_SPLIT_PATTERN = Pattern
-            .compile("\\s*[;]+\\s*");
+    public static final Pattern SEMICOLON_SPLIT_PATTERN = Pattern.compile("\\s*[;]+\\s*");
 
     public static final String CONNECT_QUEUE_CAPACITY = "connect.queue.capacity";
 

@@ -94,13 +94,18 @@ public abstract class AbstractConfig implements Serializable {
         if (config == null) {
             return;
         }
+        //eg: prefix=dubbo.consumer.  dubbo.provider.
         String prefix = "dubbo." + getTagName(config.getClass()) + ".";
         Method[] methods = config.getClass().getMethods();
         for (Method method : methods) {
             try {
                 String name = method.getName();
-                if (name.length() > 3 && name.startsWith("set") && Modifier.isPublic(method.getModifiers())
-                        && method.getParameterTypes().length == 1 && isPrimitive(method.getParameterTypes()[0])) {
+                //遍历所有的public类型的set方法，
+                if (name.length() > 3 &&
+                        name.startsWith("set") &&
+                        Modifier.isPublic(method.getModifiers()) &&
+                        method.getParameterTypes().length == 1 &&
+                        isPrimitive(method.getParameterTypes()[0])) {
                     String property = StringUtils.camelToSplitName(name.substring(3, 4).toLowerCase() + name.substring(4), ".");
 
                     String value = null;
@@ -158,15 +163,19 @@ public abstract class AbstractConfig implements Serializable {
     }
 
     private static String getTagName(Class<?> cls) {
-        String tag = cls.getSimpleName();
+        //eg: cls = org.apache.dubbo.config.ConsumerConfig
+        //eg: cls = org.apache.dubbo.config.ApplicationConfig
+        String tag = cls.getSimpleName();//eg: ConsumerConfig,ProviderConfig
         for (String suffix : SUFFIXES) {
+            //检查tag是否以config或bean结尾
             if (tag.endsWith(suffix)) {
+                //如果是的话，tag就是去掉后缀的部分。eg:Consumer
                 tag = tag.substring(0, tag.length() - suffix.length());
                 break;
             }
         }
         tag = tag.toLowerCase();
-        return tag;
+        return tag;//eg:consumer，provider
     }
 
     protected static void appendParameters(Map<String, String> parameters, Object config) {

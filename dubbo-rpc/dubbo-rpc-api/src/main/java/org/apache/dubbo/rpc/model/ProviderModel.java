@@ -29,8 +29,8 @@ import java.util.Map;
 public class ProviderModel {
     private final String serviceName;
     private final Object serviceInstance;
-    private final Class<?> serviceInterfaceClass;
-    private final Map<String, List<ProviderMethodModel>> methods = new HashMap<String, List<ProviderMethodModel>>();
+    private final Class<?> serviceInterfaceClass;//实际执行的类（impl）
+    private final Map<String/*methodName*/, List<ProviderMethodModel>> methods = new HashMap<String, List<ProviderMethodModel>>();
 
     public ProviderModel(String serviceName, Object serviceInstance, Class<?> serviceInterfaceClass) {
         if (null == serviceInstance) {
@@ -79,6 +79,7 @@ public class ProviderModel {
 
     private void initMethod() {
         Method[] methodsToExport = null;
+        //从实际执行的类中拿到所有需要导出的方法
         methodsToExport = this.serviceInterfaceClass.getMethods();
 
         for (Method method : methodsToExport) {

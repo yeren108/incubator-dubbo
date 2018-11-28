@@ -261,6 +261,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 monitor = application.getMonitor();
             }
         }
+        //demo中ref=DemoServiceimpl
         if (ref instanceof GenericService) {
             interfaceClass = GenericService.class;
             if (StringUtils.isEmpty(generic)) {
@@ -268,8 +269,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
             }
         } else {
             try {
-                interfaceClass = Class.forName(interfaceName, true, Thread.currentThread()
-                        .getContextClassLoader());
+                interfaceClass = Class.forName(interfaceName, true, Thread.currentThread().getContextClassLoader());
             } catch (ClassNotFoundException e) {
                 throw new IllegalStateException(e.getMessage(), e);
             }
@@ -315,6 +315,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
             path = interfaceName;
         }
         doExportUrls();
+        //初始化生产者模型
         ProviderModel providerModel = new ProviderModel(getUniqueServiceName(), ref, interfaceClass);
         ApplicationModel.initProviderModel(getUniqueServiceName(), providerModel);
     }

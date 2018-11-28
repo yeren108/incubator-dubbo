@@ -39,11 +39,11 @@ public class ApplicationModel {
     /**
      * full qualified class name -> provided service
      */
-    private static final ConcurrentMap<String, ProviderModel> providedServices = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String/*serviceName*/, ProviderModel> providedServices = new ConcurrentHashMap<>();
     /**
      * full qualified class name -> subscribe service
      */
-    private static final ConcurrentMap<String, ConsumerModel> consumedServices = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String/*serviceName*/, ConsumerModel> consumedServices = new ConcurrentHashMap<>();
 
     public static Collection<ConsumerModel> allConsumerModels() {
         return consumedServices.values();

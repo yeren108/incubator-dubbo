@@ -80,6 +80,7 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
     @SuppressWarnings({"unchecked"})
     public void afterPropertiesSet() throws Exception {
         if (getConsumer() == null) {
+            // 如果没有配置consumer属性，则使用默认的consumer属性
             Map<String, ConsumerConfig> consumerConfigMap = applicationContext == null ? null : BeanFactoryUtils.beansOfTypeIncludingAncestors(applicationContext, ConsumerConfig.class, false, false);
             if (consumerConfigMap != null && consumerConfigMap.size() > 0) {
                 ConsumerConfig consumerConfig = null;
@@ -96,8 +97,8 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
                 }
             }
         }
-        if (getApplication() == null
-                && (getConsumer() == null || getConsumer().getApplication() == null)) {
+        if (getApplication() == null && (getConsumer() == null || getConsumer().getApplication() == null)) {
+            // 如果没有配置application则使用默认的application
             Map<String, ApplicationConfig> applicationConfigMap = applicationContext == null ? null : BeanFactoryUtils.beansOfTypeIncludingAncestors(applicationContext, ApplicationConfig.class, false, false);
             if (applicationConfigMap != null && applicationConfigMap.size() > 0) {
                 ApplicationConfig applicationConfig = null;
@@ -114,8 +115,8 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
                 }
             }
         }
-        if (getModule() == null
-                && (getConsumer() == null || getConsumer().getModule() == null)) {
+        if (getModule() == null && (getConsumer() == null || getConsumer().getModule() == null)) {
+            // 如果没有配置module则使用默认的module
             Map<String, ModuleConfig> moduleConfigMap = applicationContext == null ? null : BeanFactoryUtils.beansOfTypeIncludingAncestors(applicationContext, ModuleConfig.class, false, false);
             if (moduleConfigMap != null && moduleConfigMap.size() > 0) {
                 ModuleConfig moduleConfig = null;
@@ -132,9 +133,8 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
                 }
             }
         }
-        if ((getRegistries() == null || getRegistries().isEmpty())
-                && (getConsumer() == null || getConsumer().getRegistries() == null || getConsumer().getRegistries().isEmpty())
-                && (getApplication() == null || getApplication().getRegistries() == null || getApplication().getRegistries().isEmpty())) {
+        if ((getRegistries() == null || getRegistries().isEmpty()) && (getConsumer() == null || getConsumer().getRegistries() == null || getConsumer().getRegistries().isEmpty()) && (getApplication() == null || getApplication().getRegistries() == null || getApplication().getRegistries().isEmpty())) {
+            // 如果没有配置registries则使用默认的registries
             Map<String, RegistryConfig> registryConfigMap = applicationContext == null ? null : BeanFactoryUtils.beansOfTypeIncludingAncestors(applicationContext, RegistryConfig.class, false, false);
             if (registryConfigMap != null && registryConfigMap.size() > 0) {
                 List<RegistryConfig> registryConfigs = new ArrayList<>();
@@ -148,9 +148,8 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
                 }
             }
         }
-        if (getMonitor() == null
-                && (getConsumer() == null || getConsumer().getMonitor() == null)
-                && (getApplication() == null || getApplication().getMonitor() == null)) {
+        if (getMonitor() == null && (getConsumer() == null || getConsumer().getMonitor() == null) && (getApplication() == null || getApplication().getMonitor() == null)) {
+            // 如果没有配置monitor则使用默认monitor
             Map<String, MonitorConfig> monitorConfigMap = applicationContext == null ? null : BeanFactoryUtils.beansOfTypeIncludingAncestors(applicationContext, MonitorConfig.class, false, false);
             if (monitorConfigMap != null && monitorConfigMap.size() > 0) {
                 MonitorConfig monitorConfig = null;
@@ -167,6 +166,7 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
                 }
             }
         }
+        // 如果设置了init属性且为true，则初始化对象，默认是不初始化的
         Boolean b = isInit();
         if (b == null && getConsumer() != null) {
             b = getConsumer().isInit();

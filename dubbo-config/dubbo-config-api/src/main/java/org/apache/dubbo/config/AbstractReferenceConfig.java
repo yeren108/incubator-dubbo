@@ -40,6 +40,7 @@ public abstract class AbstractReferenceConfig extends AbstractInterfaceConfig {
     protected Boolean init;
 
     // whether to use generic interface
+    // 是否使用通用的接口
     protected String generic;
 
     // whether to find reference's instance from the current JVM

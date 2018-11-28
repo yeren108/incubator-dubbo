@@ -29,26 +29,31 @@ public class ConsumerConfig extends AbstractReferenceConfig {
     private Boolean isDefault;
 
     // networking framework client uses: netty, mina, etc.
+    // 网络框架客户端有：netty,mina等
     private String client;
 
     // consumer thread pool type: cached, fixed, limit, eager
+    // 消费者线程池类型有：cache,fixed,limit,eager
     private String threadpool;
 
     // consumer threadpool core thread size
+    // 消费者线程池核心线程数
     private Integer corethreads;
 
     // consumer threadpool thread size
+    // 消费者线程池线程数
     private Integer threads;
 
     // consumer threadpool queue size
+    // 消费者线程池队列大小
     private Integer queues;
 
     @Override
     public void setTimeout(Integer timeout) {
         super.setTimeout(timeout);
+        //设置rmi超时时间
         String rmiTimeout = System.getProperty("sun.rmi.transport.tcp.responseTimeout");
-        if (timeout != null && timeout > 0
-                && (rmiTimeout == null || rmiTimeout.length() == 0)) {
+        if (timeout != null && timeout > 0 && (rmiTimeout == null || rmiTimeout.length() == 0)) {
             System.setProperty("sun.rmi.transport.tcp.responseTimeout", String.valueOf(timeout));
         }
     }
